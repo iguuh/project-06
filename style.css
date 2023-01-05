@@ -1,0 +1,186 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root { /* "escopo geral" */
+
+    --ff-heading: 'epilogue', sans-serif;
+    --ff-texting: 'Open sans', sans-serif;
+
+    --hue: 250; /* varaivel com cor usada para tudo */
+    --bg-primary: hsl(var(--hue), 22%, 20%); /* hsl: hue, saturation, lumiance */
+    --fc-primary: hsl(var(--hue), 0%, 100%);
+    --fc-second: hsl(var(--hue), 50%, 80%);
+    --fc-second-dark: hsl(var(--hue), 11%, 1%);
+
+    font-size: 62.5%;
+    --fs-body: 1.6rem;
+    --fs-heading: clamp(4rem, 1rem + 5vw, 5rem); /* clamp é uma função, recebe 3 argumentos (minimo, ideal, maximo aceito)*/
+    --fs-heading-sm: clamp(3rem, 0.5em + 3vw, 4rem); /* clamp é uma função, recebe 3 argumentos (minimo, ideal, maximo aceito)*/
+
+}
+
+body {
+    font-family: var(--ff-texting);
+
+    background-color: var(--bg-primary);
+    color: var(--fc-primary);
+}
+
+.page { 
+    max-width: 33rem;
+    margin: 0 auto;
+}
+
+
+
+img {
+    width: 100%;
+    height: auto;
+
+    border-radius: 6px;
+}
+
+header {
+    margin: 10rem 0 8rem;
+    font-family: var(--ff-heading);
+
+    text-align: center;
+
+    animation: topdown;
+    animation-duration: 700ms;
+
+    animation-fill-mode: forwards; /* vai fazer todas as animações do keyframe, porem vai terminar com os dados da ultima */
+}
+
+header p {
+    color: var(--fc-second);
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+    line-height: 3.2rem;
+    font-weight: 400;
+
+    margin-bottom: 1.7rem;
+}
+
+header h1 {
+    font-size: var(--fs-heading);
+    line-height: 4.8rem;
+    font-weight: 800;
+}
+
+main {
+    display: grid;
+    gap: 3.2rem;
+
+    animation: downtop 700ms 350ms backwards; /* backwards "torna" as propriedades padrões do elemento  */
+}
+
+.card {
+    position: relative; /* o h2 contido nele ficara absoluto em relação a posição relativa do card, e não irá para fora  */
+    font-family: var(--ff-heading);
+
+}
+
+.card img {
+    height: 41.6rem;
+    object-fit: cover; /* considera a tag img cmo uma caixa e a imagem/source um objeto */
+    filter: brightness(0.5);
+
+    border-radius: 6px;
+
+    transition: all 200ms;
+}
+
+.card img:hover {
+    transform: scale(1.1);
+    opacity: 0.4;
+}
+
+.card h2 {
+    position: absolute;
+    bottom: 5.2rem;
+    left: 2.8rem;
+
+    font-size: var(--fs-heading-sm);
+    font-weight: 800;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem;
+}
+
+.card h2 span {
+    border-radius: 2rem;
+    background-color: var(--fc-primary);
+    font-size: var(--fs-body);
+    color: var(--fc-second-dark);
+    font-weight: 400;
+    padding: 0 1.6rem;
+    height: 3.8rem;
+
+    width: fit-content; /* se ajustar de acordo com o conteudo */
+    display: inline-flex;
+    align-items: center;
+
+}
+
+@keyframes topdown { /* regras de animações, at rule */
+    0% { /* inicia aqui com esse valor */
+        opacity: 0;
+        transform: translatey(-15px);
+    }
+
+    100% { /* termina com esse valor, porem retorna ao valor "padrao" */
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes downtop {
+    0%{
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    100%{   
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 700px){
+
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .page {
+        max-width: 117rem;
+        padding: 0 5rem;
+    }
+}
+
+@media (min-width: 930px){
+ 
+    main {
+        grid-template-areas: "A B B"
+        "C C D";
+    }
+
+    main div:nth-child(1) {
+        grid-area: A;
+    }
+    main div:nth-child(2) {
+        grid-area: B;
+    }
+    main div:nth-child(3) {
+        grid-area: C;
+    }
+    main div:nth-child(4){
+        grid-area: D;
+    }
+}
